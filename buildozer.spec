@@ -10,7 +10,7 @@ package.name = etheroll
 package.domain = com.github.andremiras
 
 # (str) Source code where the main.py live
-source.dir = src/
+source.dir = src
 
 # (list) Source files to include (let empty to include all the files)
 source.include_exts = py,png,jpg,kv,atlas,md,json
@@ -121,6 +121,7 @@ orientation = portrait
 
 # (list) List of service to declare
 #services = NAME:ENTRYPOINT_TO_PY,NAME2:ENTRYPOINT2_TO_PY
+services = service:service/main.py
 
 #
 # OSX Specific

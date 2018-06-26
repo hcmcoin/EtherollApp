@@ -478,12 +478,30 @@ class EtherollApp(App):
         self.icon = "docs/images/icon.png"
         self.theme_cls.theme_style = 'Dark'
         self.theme_cls.primary_palette = 'Indigo'
+        self.start_service()
         return Controller()
+
+    def start_service(self):
+        """
+        Starts the roll pulling service.
+        """
+        if platform == 'android':
+            from jnius import autoclass
+            package_name = 'etheroll'
+            package_domain = 'com.github.andremiras'
+            service_name = 'service'
+            service_class = '{}.{}.Service{}'.format(
+                package_domain, package_name, service_name.title())
+            service = autoclass(service_class)
+            mActivity = autoclass('org.kivy.android.PythonActivity').mActivity
+            argument = ''
+            service.start(mActivity, argument)
 
 
 def main():
     # only send Android errors to Sentry
     in_debug = platform != "android"
+    in_debug = True
     client = configure_sentry(in_debug)
     try:
         EtherollApp().run()
